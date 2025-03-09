@@ -12,14 +12,12 @@ const dbConfig = {
 };
 
 // create a database connection pool
-const pool = mysql.createPool(dbConfig)
+const pool = mysql.createPool(dbConfig);
 
 // funciton to execute sql queries async
-async function query(sql,parameters){
-    const [rows,fields] = await pool.execute(sql,parameters)
-    return rows; 
+async function query(sql, parameters) {
+  const [rows, fields] = await pool.execute(sql, parameters);
+  return rows;
+}
 
-}  
-
-module.exports = {query}
-
+module.exports = { query };
