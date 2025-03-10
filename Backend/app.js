@@ -6,15 +6,19 @@ const express = require("express");
 const sanitize = require("sanitize");
 
 // import cors module
-// const cors = require('cors')
+const cors = require("cors");
 // create an express app
 const app = express();
 
 app.use(express.json());
 // use cors
-// app.use(cors({
-
-// }))
+app.use(
+  cors({
+    origin: process.env.FrontendURL, //  frontend URL
+    methods: "GET,POST,PUT,DELETE",
+    allowedHeaders: "Content-Type,Authorization",
+  })
+);
 //  sanitizer middleware
 app.use(sanitize.middleware);
 

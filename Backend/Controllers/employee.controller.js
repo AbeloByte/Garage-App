@@ -15,8 +15,9 @@ async function createEmployee(req, res, next) {
   } else {
     try {
       const employeeinfo = req.body;
-      // create the employee
-      console.log(employeeinfo);
+
+      console.log("This is the Employee information - - - > ", employeeinfo);
+
       const employee = await employeeService.createNewEmployee(employeeinfo);
       if (!employee) {
         res.status(400).json({

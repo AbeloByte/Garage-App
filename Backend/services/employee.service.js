@@ -4,6 +4,7 @@ const connection = require("../Config/dbconfig");
 // import bycrpt
 const bcrypt = require("bcrypt");
 
+// -------------------Employee Service-------------------
 // function to checkIfEmployeeExist
 async function checkIfEmployeeExist(email) {
   // query to check if the employee exists
@@ -19,6 +20,7 @@ async function checkIfEmployeeExist(email) {
   return true;
 }
 
+// -------------------Employee Service-------------------
 // function to create the employee
 async function createNewEmployee(employee) {
   let createdEmployee = {};
@@ -34,6 +36,10 @@ async function createNewEmployee(employee) {
       employee.employee_email,
       employee.active_employee,
     ]);
+
+    if (rows.affectedRows !== 1) {
+      return false;
+    }
 
     // insert the other informations to the table depending on the employee_id
     const employee_id = rows.insertId;
@@ -53,12 +59,12 @@ async function createNewEmployee(employee) {
     // execute the query3
     const rows3 = await connection.query(query3, [employee_id, hashedPassword]);
     // query4
-    // const query4 = `INSERT INTO employee_role (employee_id,company_role_id) VALUES (?,?)`;
+    const query4 = `INSERT INTO employee_role (employee_id,company_role_id) VALUES (?,?)`;
     // execute the query4
-    // const rows4 = await connection.query(query4, [
-    //   employee_id,
-    //   employee.company_role_id,
-    // ]);
+    const rows4 = await connection.query(query4, [
+      employee_id,
+      employee.company_role_id,
+    ]);
 
     // obj for the created employee
     createdEmployee = {
@@ -67,8 +73,27 @@ async function createNewEmployee(employee) {
   } catch (error) {
     console.log(error);
   }
+  console.log("---------->   ", createdEmployee);
   return createdEmployee;
 }
 
+// -------------------Employee Service-------------------
+// function to get employee by email by connecting information from the employee_info , employee_pass and employee_rolle table
+async function getEmployeeByEmail(email) {
+  // query to combine the employee_info and employee_pass and employee_role table
+  const query = `SELECT * FROM employee
+  INNER JOIN employee_info ON employee.employee_id = employee_info.employee_id  
+  INNER JOIN employee_pass ON employee.employee_id = employee_pass.employee_id
+  INNER JOIN employee_role ON employee.employee_id = employee_role.employee_id
+  WHERE employee_email = ?`;
+  const row = await connection.query(query, [email]);
+
+  return row[0];
+}
+
 // export the functions
-module.exports = { checkIfEmployeeExist, createNewEmployee };
+module.exports = {
+  checkIfEmployeeExist,
+  createNewEmployee,
+  getEmployeeByEmail,
+};
