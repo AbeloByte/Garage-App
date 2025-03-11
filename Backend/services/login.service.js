@@ -13,11 +13,10 @@ async function login(employeeData) {
     const employee = await employeeService.getEmployeeByEmail(
       employeeData.employee_email
     );
-
     // if the employee is not found return error
     if (employee.length === 0) {
       returned_employeeInformation = {
-        status: "failed",
+        status: "failed ",
         message: "Employee does not Exist",
       };
       return returned_employeeInformation;
@@ -34,7 +33,7 @@ async function login(employeeData) {
     // if the password is not correct return error
     if (!isPasswordMatch) {
       returned_employeeInformation = {
-        status: "failed",
+        status: "failed what",
         message: "Incorrect Password",
       };
       return returned_employeeInformation;
@@ -46,11 +45,6 @@ async function login(employeeData) {
     };
 
     // return the employee information
-
-    console.log(
-      "The Returned employee information is here :- ",
-      returned_employeeInformation
-    );
 
     return returned_employeeInformation;
   } catch (error) {

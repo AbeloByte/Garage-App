@@ -81,6 +81,7 @@ async function createNewEmployee(employee) {
 // function to get employee by email by connecting information from the employee_info , employee_pass and employee_rolle table
 async function getEmployeeByEmail(email) {
   // query to combine the employee_info and employee_pass and employee_role table
+
   const query = `SELECT * FROM employee
   INNER JOIN employee_info ON employee.employee_id = employee_info.employee_id  
   INNER JOIN employee_pass ON employee.employee_id = employee_pass.employee_id
