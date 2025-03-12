@@ -13,7 +13,7 @@ import "./assets/template_assets/css/style.css";
 import "./assets/template_assets/css/responsive.css";
 
 // import custome css file
-import "./assets/styles/custome.css";
+import "./assets/styles/custom.css";
 import Header from "./markup/components/Header/Header";
 import Footer from "./markup/components/Footer/Footer";
 import UnAuthorized from "./markup/pages/UnAuthorized";
