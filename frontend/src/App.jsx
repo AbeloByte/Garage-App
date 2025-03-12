@@ -16,6 +16,15 @@ import "./assets/template_assets/css/responsive.css";
 import "./assets/styles/custome.css";
 import Header from "./markup/components/Header/Header";
 import Footer from "./markup/components/Footer/Footer";
+import UnAuthorized from "./markup/pages/UnAuthorized";
+import PrivateAuthRoute from "./markup/components/Auth/PrivateAuthRoute";
+
+// pages
+
+import Customers from "./markup/pages/Admin/Customers";
+import Orders from "./markup/pages/Admin/Orders";
+import Employees from "./markup/pages/Admin/Employees";
+
 function App() {
   return (
     <>
@@ -23,7 +32,26 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/admin/add-employee" element={<AddEmployee />} />
+        <Route path="/unauthorized" element={<UnAuthorized />} />
+
+        <Route
+          path="/admin/customers"
+          element={
+            <PrivateAuthRoute roles={[2, 3]}>
+              <Customers />
+            </PrivateAuthRoute>
+          }
+        />
+        <Route path="/admin/orders" element={<Orders />} />
+        <Route path="/admin/employees" element={<Employees />} />
+        <Route
+          path="/admin/add-employee"
+          element={
+            <PrivateAuthRoute roles={[3]}>
+              <AddEmployee />
+            </PrivateAuthRoute>
+          }
+        />
       </Routes>
       <Footer />
     </>

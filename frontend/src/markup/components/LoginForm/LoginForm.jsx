@@ -19,7 +19,7 @@ function LoginForm() {
   const [serverError, setServerError] = useState("");
 
   //
-  const handleLogin = async (e) => {
+  const handleLogin = (e) => {
     e.preventDefault();
 
     let flag = true;

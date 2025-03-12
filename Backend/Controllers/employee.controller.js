@@ -1,8 +1,10 @@
 // import employee service
+const { response } = require("express");
 const employeeService = require("../services/employee.service");
 
 // async function to controlle the add employee
 async function createEmployee(req, res, next) {
+  console.log(req.headers);
   // check if the employee is already exist
   const employeeExists = await employeeService.checkIfEmployeeExist(
     req.body.employee_email
@@ -16,7 +18,7 @@ async function createEmployee(req, res, next) {
     try {
       const employeeinfo = req.body;
 
-      console.log("This is the Employee information - - - > ", employeeinfo);
+      // console.log("This is the Employee information - - - > ", employeeinfo);
 
       const employee = await employeeService.createNewEmployee(employeeinfo);
       if (!employee) {

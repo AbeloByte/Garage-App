@@ -16,7 +16,7 @@ app.use(
   cors({
     origin: process.env.FrontendURL, //  frontend URL
     methods: "GET,POST,PUT,DELETE",
-    allowedHeaders: "Content-Type,Authorization",
+    allowedHeaders: ["Content-Type,Authorization", "x-access-token"],
   })
 );
 //  sanitizer middleware

@@ -24,7 +24,7 @@ export const AuthProvider = ({ children }) => {
     getloginData.then((response) => {
       if (response.employee_token) {
         setIsLogged(true);
-        if (response.employee_role === "admin") {
+        if (response.employee_role === 3) {
           setIsAdmin(true);
         }
         setEmployeeData(response);

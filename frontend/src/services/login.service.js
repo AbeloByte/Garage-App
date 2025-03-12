@@ -2,10 +2,13 @@
 const apiUrl = import.meta.env.VITE_API_URL;
 
 // function to send login data to the backend
+//
 const LoginForm = async (loginFormData) => {
   const requestionOptions = {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
+    headers: {
+      "Content-Type": "application/json",
+    },
     body: JSON.stringify(loginFormData),
   };
 

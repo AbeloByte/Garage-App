@@ -1,8 +1,9 @@
 /* eslint-disable no-unused-vars */
 // import useState
-import React, { useState } from "react";
+import React, { use, useState } from "react";
 // import employeeService
 import employeeService from "../../../../services/employee.service";
+import { useAuth } from "../../../../context/AuthContext.jsx";
 function AddEmployeeForm() {
   // create a state variable for the each form data
   const [employee_email, setEmployeeEmail] = useState("");
@@ -20,6 +21,16 @@ function AddEmployeeForm() {
   const [success, setSuccess] = useState("");
   const [serverError, setServerError] = useState("");
 
+  // import token from useAuth
+
+  let loggedinEmployeeToken = "";
+  // get the logged in employee token from the local storage
+  const { employee_data } = useAuth();
+  if (employee_data && employee_data.employee_token) {
+    loggedinEmployeeToken = employee_data.employee_token;
+  }
+
+  // console.log(loggedinEmployeeToken);
   // function to handle the form submission
   const handleFormSubmit = (e) => {
     e.preventDefault();
@@ -74,10 +85,12 @@ function AddEmployeeForm() {
       active_employee,
       company_role_id,
     };
-
     // call the addEmployee function from the employeeService
-    const createEmployee = employeeService.addEmployee(newEmployeeformData);
-    console.log(createEmployee);
+    const createEmployee = employeeService.addEmployee(
+      newEmployeeformData,
+      loggedinEmployeeToken
+    );
+    console.log("ACCOUNT CREATED SUCCEESSFULLY  :--  ", createEmployee);
 
     createEmployee
       .then((data) => {
