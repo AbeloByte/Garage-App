@@ -4,7 +4,7 @@ const employeeService = require("../services/employee.service");
 
 // async function to controlle the add employee
 async function createEmployee(req, res, next) {
-  console.log(req.headers);
+  // console.log(req.headers);
   // check if the employee is already exist
   const employeeExists = await employeeService.checkIfEmployeeExist(
     req.body.employee_email
@@ -17,8 +17,6 @@ async function createEmployee(req, res, next) {
   } else {
     try {
       const employeeinfo = req.body;
-
-      // console.log("This is the Employee information - - - > ", employeeinfo);
 
       const employee = await employeeService.createNewEmployee(employeeinfo);
       if (!employee) {
@@ -38,5 +36,26 @@ async function createEmployee(req, res, next) {
   }
 }
 
+// a function to getAllEmployees
+async function getAllEmployees(req, res, next) {
+  try {
+    const getAllEmployees = await employeeService.getAllEmployees();
+
+    if (!getAllEmployees) {
+      res.status(400).json({
+        message: "Failed to get all employees",
+      });
+    } else {
+      res.status(200).json({
+        status: "true",
+        data: getAllEmployees,
+      });
+    }
+  } catch (error) {
+    res.status(400).json({
+      error: "Something went wrong while getting all employees",
+    });
+  }
+}
 // export the function
-module.exports = { createEmployee };
+module.exports = { createEmployee, getAllEmployees };
