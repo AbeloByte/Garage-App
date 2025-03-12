@@ -34,12 +34,10 @@ const verifyToken = async (req, res, next) => {
 
 const isAdmin = async (req, res, next) => {
   const employeeEmail = req.employee_email;
-  console.log("Employee Email ::::: ", employeeEmail);
+
   const employee = await employeeService.getEmployeeByEmail(employeeEmail);
-  console.log("Iam from middleWare", employee);
 
   if (employee.company_role_id === 3) {
-    console.log("******************** ", employee.company_role_id);
     next();
   } else {
     return res.status(403).send({

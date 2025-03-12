@@ -12,7 +12,6 @@ async function checkIfEmployeeExist(email) {
 
   const row = await connection.query(query, [email]);
   // if the row is empty return false
-  console.log(row);
   if (row.length === 0) {
     return false;
   }
@@ -73,7 +72,7 @@ async function createNewEmployee(employee) {
   } catch (error) {
     console.log(error);
   }
-  console.log("---------->   ", createdEmployee);
+
   return createdEmployee;
 }
 
@@ -92,9 +91,23 @@ async function getEmployeeByEmail(email) {
   return row[0];
 }
 
-// export the functions
+// -------------------Employee Service-------------------
+// function to get all employee
+async function getAllEmployees() {
+  // query to get all the employees
+  const query = `SELECT * FROM employee 
+  INNER JOIN employee_info ON employee.employee_id = employee_info.employee_id
+  INNER JOIN employee_role ON employee.employee_id = employee_role.employee_id
+  INNER JOIN company_roles ON employee_role.company_role_id = company_roles.company_role_id ORDER BY employee.employee_id DESC limit 10`;
+
+  const rows = await connection.query(query);
+  // export the functions
+
+  return rows;
+}
 module.exports = {
   checkIfEmployeeExist,
   createNewEmployee,
   getEmployeeByEmail,
+  getAllEmployees,
 };
