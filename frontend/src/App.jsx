@@ -35,7 +35,7 @@ function App() {
         <Route path="/unauthorized" element={<UnAuthorized />} />
 
         <Route
-          path="/admin/customers"
+          path="/admin/add-customers"
           element={
             <PrivateAuthRoute roles={[2, 3]}>
               <Customers />

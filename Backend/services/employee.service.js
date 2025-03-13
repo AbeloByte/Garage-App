@@ -105,9 +105,20 @@ async function getAllEmployees() {
 
   return rows;
 }
+
+// -------------------Employee Service-------------------
+// function to get Single Employee
+async function getSingleEmployee() {
+  const query = `SELECT * FROM employee WHERE employee_id = ?`;
+  const row = await connection.query(query, [id]);
+  return row;
+}
+
+// export the functions
 module.exports = {
   checkIfEmployeeExist,
   createNewEmployee,
   getEmployeeByEmail,
   getAllEmployees,
+  getSingleEmployee,
 };

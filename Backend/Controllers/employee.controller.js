@@ -57,5 +57,29 @@ async function getAllEmployees(req, res, next) {
     });
   }
 }
+
+// a function to get Single Employee
+async function getSingleEmployee(req, res, next) {
+  try {
+    const getSingleEmployee = await employeeService.getSingleEmployee(
+      req.params.id
+    );
+
+    if (!getSingleEmployee) {
+      res.status(400).json({
+        message: "Failed to get the Single employee",
+      });
+    } else {
+      res.status(200).json({
+        status: "true",
+        data: getSingleEmployee,
+      });
+    }
+  } catch (error) {
+    res.status(400).json({
+      error: "Something went wrong while getting the employee",
+    });
+  }
+}
 // export the function
 module.exports = { createEmployee, getAllEmployees };

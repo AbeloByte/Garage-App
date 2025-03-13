@@ -20,5 +20,11 @@ router.use(employeeRoute);
 const loginRoute = require("./login.routes");
 // use the login route
 router.use(loginRoute);
+
+// import the customer route
+const customerRoute = require("./customer.routes");
+// use the customer route
+router.use(customerRoute);
+
 // export the router
 module.exports = router;

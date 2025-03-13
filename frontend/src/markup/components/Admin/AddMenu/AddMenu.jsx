@@ -23,7 +23,7 @@ function AddMenu() {
           <a href="/admin/employees" className="list-group-item">
             Employees
           </a>
-          <a href="/admin/add-customer" className="list-group-item">
+          <a href="/admin/add-customers" className="list-group-item">
             Add customer
           </a>
           <a href="/admin/customers" className="list-group-item">
