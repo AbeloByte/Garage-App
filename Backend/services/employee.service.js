@@ -106,12 +106,21 @@ async function getAllEmployees() {
   return rows;
 }
 
-// -------------------Employee Service-------------------
+// -------------------Get Single EmployeeInfo - Employee Service-------------------
 // function to get Single Employee
 async function getSingleEmployee() {
   const query = `SELECT * FROM employee WHERE employee_id = ?`;
   const row = await connection.query(query, [id]);
   return row;
+}
+
+// -------------------Update - Employee Service-------------------
+async function updateEmployee(employee_id, employee_Info) {
+  try {
+    // a query to update the employee
+    const UpdateEmployeeInfo = ``;
+  } catch (error) {}
+  // query to update the employee
 }
 
 // export the functions

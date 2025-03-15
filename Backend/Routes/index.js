@@ -26,5 +26,10 @@ const customerRoute = require("./customer.routes");
 // use the customer route
 router.use(customerRoute);
 
+// import the vehicle route
+const vehicleRoute = require("./vehicle.routes");
+// use the vehicle route
+router.use(vehicleRoute);
+
 // export the router
 module.exports = router;

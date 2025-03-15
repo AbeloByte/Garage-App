@@ -68,7 +68,7 @@ async function createNewCustomer(customer) {
       customer_hash: customer_hash,
     };
 
-    console.log("The row information2222 :::", createdCustomer);
+    // console.log("The row information2222 :::", createdCustomer);
   } catch (error) {
     return false;
   }
@@ -76,7 +76,99 @@ async function createNewCustomer(customer) {
   return createdCustomer;
 }
 
+// --------- Customer Service ---------
+
+async function getSingleCustomer(customer_id) {
+  try {
+    const getCustomerQuery = `SELECT ci.customer_first_name, ci.customer_last_name, ci.active_customer_status, 
+             c.customer_email, c.customer_phone_number, c.customer_hash 
+      FROM customer_identifier c
+      JOIN customer_info ci ON c.customer_id = ci.customer_id
+      WHERE c.customer_id = ?;
+    `;
+
+    const customer_rows = await connection.query(getCustomerQuery, [
+      customer_id,
+    ]);
+
+    if (customer_rows.length === 0) {
+      throw new Error("Customer not found");
+    }
+
+    return customer_rows;
+  } catch (error) {
+    // console.log("Error retrieving customer", error);
+    throw error;
+  }
+}
+
+// --------- Customer Service ---------
+// function to get all customers
+async function getAllCustomers() {
+  // query to get all customers from different tables
+  const getAllCustomersQuery = `SELECT * FROM customer_identifier 
+  INNER JOIN customer_info ON customer_identifier.customer_id = customer_info.customer_id 
+ORDER BY customer_identifier.customer_id DESC 
+LIMIT 10;
+`;
+
+  // execute the query
+  const rows = await connection.query(getAllCustomersQuery);
+  // if the rows is empty return false
+  if (rows.length === 0) {
+    return false;
+  }
+  // if the rows is not empty return the rows
+  return rows;
+}
+
+// --------- Customer Service ---------
+// funtion to edit customer information in the database
+async function editCustomer(customer_id, customerInfo) {
+  try {
+    const customer = {
+      customer_id: customer_id,
+      customer_first_name: customerInfo.customer_first_name,
+      customer_last_name: customerInfo.customer_last_name,
+      customer_phone_number: customerInfo.customer_phone_number,
+      active_customer_status: customerInfo.active_customer_status,
+    };
+
+    const updateCustomerQuery = `UPDATE customer_info
+JOIN customer_identifier ON customer_info.customer_id = customer_identifier.customer_id
+SET 
+    customer_identifier.customer_phone_number = ?,
+    customer_info.customer_first_name =?,
+    customer_info.customer_last_name = ?,
+    customer_info.active_customer_status = ?
+WHERE customer_info.customer_id = ?;
+`;
+
+    const UpdateCustomer_rows = await connection.query(updateCustomerQuery, [
+      customer.customer_phone_number,
+      customer.customer_first_name,
+      customer.customer_last_name,
+      customer.active_customer_status,
+      customer.customer_id,
+    ]);
+
+    console.log("The updated customer information :::", UpdateCustomer_rows);
+    if (UpdateCustomer_rows.affectedRows === 0) {
+      return false;
+    }
+
+    return true;
+  } catch (error) {
+    console.log("Error updating customer", error);
+
+    return false;
+  }
+}
+
 module.exports = {
   checkIfCustomerExist,
   createNewCustomer,
+  getSingleCustomer,
+  getAllCustomers,
+  editCustomer,
 };

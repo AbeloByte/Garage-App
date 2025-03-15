@@ -81,5 +81,38 @@ async function getSingleEmployee(req, res, next) {
     });
   }
 }
+
+// a function to update Employee
+async function updateEmployee(req, res, next) {
+  try {
+    const employee_id = req.params.id;
+    const employee_Info = req.body;
+    const updateEmployee = await employeeService.updateEmployee(
+      employee_id,
+      employee_Info
+    );
+
+    if (!updateEmployee) {
+      res.status(400).json({
+        message: "Failed to update the employee",
+      });
+    } else {
+      res.status(200).json({
+        status: "true",
+        data: updateEmployee,
+      });
+    }
+  } catch (error) {
+    res.status(400).json({
+      error: "Something went wrong while updating the employee",
+    });
+  }
+}
+
 // export the function
-module.exports = { createEmployee, getAllEmployees };
+module.exports = {
+  createEmployee,
+  getAllEmployees,
+  getSingleEmployee,
+  updateEmployee,
+};
