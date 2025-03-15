@@ -166,6 +166,36 @@ async function updateEmployee(employee_id, employee_Info) {
   // query to update the employee
 }
 
+// -------------------Delete Employee Information - Employee Service-------------------
+async function deleteEmployee(employee_id) {
+  try {
+    // Delete from employee_info table
+    const deleteEmployeeInfoQuery = `DELETE FROM employee_info WHERE employee_id = ?`;
+    await connection.query(deleteEmployeeInfoQuery, [employee_id]);
+
+    // Delete from employee_pass table
+    const deleteEmployeePassQuery = `DELETE FROM employee_pass WHERE employee_id = ?`;
+    await connection.query(deleteEmployeePassQuery, [employee_id]);
+
+    // Delete from employee_role table
+    const deleteEmployeeRoleQuery = `DELETE FROM employee_role WHERE employee_id = ?`;
+    await connection.query(deleteEmployeeRoleQuery, [employee_id]);
+
+    // Delete from employee table
+    const deleteEmployeeQuery = `DELETE FROM employee WHERE employee_id = ?`;
+    const deleteEmployee = await connection.query(deleteEmployeeQuery, [
+      employee_id,
+    ]);
+
+    if (deleteEmployee.affectedRows === 1) {
+      return true;
+    }
+  } catch (error) {
+    console.log(error);
+    return false;
+  }
+}
+
 // export the functions
 module.exports = {
   checkIfEmployeeExist,
@@ -174,4 +204,5 @@ module.exports = {
   getAllEmployees,
   getSingleEmployee,
   updateEmployee,
+  deleteEmployee,
 };

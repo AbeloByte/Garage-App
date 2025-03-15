@@ -43,5 +43,16 @@ async function createVehicle(vehicle) {
   }
 }
 
+// function to fetch vehicle information for a customer
+async function getVehicleInfo(customerId) {
+  try {
+    const vehicleQuery = `SELECT * FROM customer_vehicle_info WHERE customer_id = ?`;
+    const [vehicle] = await connection.query(vehicleQuery, [customerId]);
+
+    return vehicle;
+  } catch (error) {
+    return error;
+  }
+}
 // export the function
-module.exports = { createVehicle };
+module.exports = { createVehicle, getVehicleInfo };

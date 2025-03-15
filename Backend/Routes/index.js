@@ -31,5 +31,9 @@ const vehicleRoute = require("./vehicle.routes");
 // use the vehicle route
 router.use(vehicleRoute);
 
+// import the service route
+const serviceRoute = require("./service.routes");
+// use the service route
+router.use(serviceRoute);
 // export the router
 module.exports = router;

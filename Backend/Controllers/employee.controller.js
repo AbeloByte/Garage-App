@@ -113,10 +113,36 @@ async function updateEmployee(req, res, next) {
   }
 }
 
+// function to delete employee
+
+async function deleteEmployee(req, res, next) {
+  try {
+    const employee_id = req.params.id;
+    const deleteEmployee = await employeeService.deleteEmployee(employee_id);
+
+    if (!deleteEmployee) {
+      res.status(400).json({
+        message: "Failed to delete the employee",
+      });
+    } else {
+      res.status(200).json({
+        status: "true",
+        message: "Employee deleted successfully",
+        data: deleteEmployee,
+      });
+    }
+  } catch (error) {
+    res.status(400).json({
+      error: "Something went wrong while deleting the employee",
+    });
+  }
+}
+
 // export the function
 module.exports = {
   createEmployee,
   getAllEmployees,
   getSingleEmployee,
   updateEmployee,
+  deleteEmployee,
 };
