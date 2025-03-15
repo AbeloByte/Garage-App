@@ -20,11 +20,7 @@ router.get(
   employeeController.getAllEmployees
 );
 
-router.put(
-  "/api/employee/:id",
-  [authmiddleware.verifyToken, authmiddleware.isAdmin],
-  employeeController.updateEmployee
-);
+router.put("/api/employee/:id", employeeController.updateEmployee);
 
 // export the router
 module.exports = router;

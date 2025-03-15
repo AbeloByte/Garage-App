@@ -87,11 +87,14 @@ async function updateEmployee(req, res, next) {
   try {
     const employee_id = req.params.id;
     const employee_Info = req.body;
+
+    console.log("updateEmployee Controller line 91", employee_Info);
     const updateEmployee = await employeeService.updateEmployee(
       employee_id,
       employee_Info
     );
 
+    console.log("updateEmployee Controller line 95", updateEmployee);
     if (!updateEmployee) {
       res.status(400).json({
         message: "Failed to update the employee",
@@ -99,6 +102,7 @@ async function updateEmployee(req, res, next) {
     } else {
       res.status(200).json({
         status: "true",
+        message: "Employee updated successfully",
         data: updateEmployee,
       });
     }

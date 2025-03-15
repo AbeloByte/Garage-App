@@ -117,9 +117,52 @@ async function getSingleEmployee() {
 // -------------------Update - Employee Service-------------------
 async function updateEmployee(employee_id, employee_Info) {
   try {
+    console.log("employee_id", employee_id);
+    console.log("employee_Info", employee_Info);
     // a query to update the employee
-    const UpdateEmployeeInfo = ``;
-  } catch (error) {}
+    const UpdateEmployeeInfo = `UPDATE employee_info SET employee_first_name = ?, employee_last_name = ?,  employee_phone = ?
+      
+    WHERE employee_id = ? `;
+
+    const UpdaeEmployee_rows = await connection.query(UpdateEmployeeInfo, [
+      employee_Info.employee_first_name,
+      employee_Info.employee_last_name,
+      employee_Info.employee_phone,
+
+      employee_id,
+    ]);
+
+    // query to update the employee status
+    const updateEmployeeQuery = `
+      UPDATE employee
+      SET active_employee = ?
+      WHERE employee_id = ?`;
+
+    const updateEmployee = await connection.query(updateEmployeeQuery, [
+      employee_Info.active_employee,
+      employee_id,
+    ]);
+    // query to update the employee role
+    const UpdateEmployeeRole = `UPDATE employee_role SET company_role_id = ? WHERE employee_id = ?`;
+    const UpdateEmployeeRole_rows = await connection.query(UpdateEmployeeRole, [
+      employee_Info.company_role_id,
+      employee_id,
+    ]);
+
+    // to check if updated
+    if (
+      UpdaeEmployee_rows.affectedRows === 1 &&
+      UpdateEmployeeRole_rows.affectedRows === 1 &&
+      updateEmployee.affectedRows === 1
+    ) {
+      return true;
+    }
+
+    return false;
+  } catch (error) {
+    console.log(error);
+    return false;
+  }
   // query to update the employee
 }
 
@@ -130,4 +173,5 @@ module.exports = {
   getEmployeeByEmail,
   getAllEmployees,
   getSingleEmployee,
+  updateEmployee,
 };
