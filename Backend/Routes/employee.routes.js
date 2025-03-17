@@ -20,9 +20,12 @@ router.get(
   employeeController.getAllEmployees
 );
 
+// get singlee employee by ID
+router.get("/api/employee/:id", employeeController.getSingleEmployee);
+
 router.put("/api/employee/:id", employeeController.updateEmployee);
 
 // route to delete employee
-router.delete("/api/employee/:id", employeeController.deleteEmployee);
+router.delete("/api/employee/delete/:id", employeeController.deleteEmployee);
 // export the router
 module.exports = router;

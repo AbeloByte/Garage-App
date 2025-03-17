@@ -20,6 +20,9 @@ router.get("/api/customer/:id", customerController.getCustomerbyId);
 // // route to edit the customer
 router.put("/api/customer/:id", customerController.editCustomer);
 
+// route to search a customer
+router.get("/api/customer/search/:name", customerController.searchCustomer);
+
 // // route to delete the customer
 // router.delete("/api/customers/:id", customerController.deleteCustomer);
 

@@ -165,10 +165,32 @@ WHERE customer_info.customer_id = ?;
   }
 }
 
+// -------- Customer Service ---------
+// function to search for a customer
+async function searchCustomer(customer_name) {
+  try {
+    const searchCustomerQuery = `SELECT * FROM customer_info WHERE customer_first_name LIKE ? OR customer_last_name LIKE ?`;
+    const searchCustomer_rows = await connection.query(searchCustomerQuery, [
+      `%${customer_name}%`,
+      `%${customer_name}%`,
+    ]);
+
+    if (searchCustomer_rows.length === 0) {
+      return false;
+    } else {
+      return searchCustomer_rows;
+    }
+  } catch (error) {
+    console.log("Error searching for customer", error);
+    return false;
+  }
+}
+
 module.exports = {
   checkIfCustomerExist,
   createNewCustomer,
   getSingleCustomer,
   getAllCustomers,
   editCustomer,
+  searchCustomer,
 };

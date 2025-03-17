@@ -61,8 +61,10 @@ async function getAllEmployees(req, res, next) {
 // a function to get Single Employee
 async function getSingleEmployee(req, res, next) {
   try {
+    const employee_id = req.params.id;
+    console.log("getSingleEmployee Controller line 64", employee_id);
     const getSingleEmployee = await employeeService.getSingleEmployee(
-      req.params.id
+      employee_id
     );
 
     if (!getSingleEmployee) {
@@ -127,7 +129,7 @@ async function deleteEmployee(req, res, next) {
     } else {
       res.status(200).json({
         status: "true",
-        message: "Employee deleted successfully",
+        message: "Employee Information deleted successfully",
         data: deleteEmployee,
       });
     }

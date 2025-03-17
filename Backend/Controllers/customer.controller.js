@@ -124,10 +124,35 @@ async function editCustomer(req, res, next) {
   }
 }
 
+// function to search customer
+async function searchCustomer(req, res, next) {
+  try {
+    const customer_name = req.params.name;
+    console.log("Customer Name :::: ", customer_name);
+    const searchCustomer = await customerService.searchCustomer(customer_name);
+    if (!searchCustomer) {
+      res.status(404).json({
+        status: "false",
+        message: "No Customer found",
+      });
+    } else {
+      res.status(200).json({
+        status: "true",
+        message: "Customer found",
+        data: searchCustomer,
+      });
+    }
+  } catch (error) {
+    res.status(400).json({
+      error: "Something went wrong while searching the customer",
+    });
+  }
+}
 // export the function
 module.exports = {
   addCustomer,
   getCustomerbyId,
   getAllCustomers,
   editCustomer,
+  searchCustomer,
 };
