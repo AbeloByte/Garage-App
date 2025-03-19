@@ -5,8 +5,16 @@ const vehicleService = require("../services/vehicle.service");
 //  a function to create  vehicle
 async function createVehicle(req, res) {
   try {
-    const VehicleInfo = req.body;
-    const NewVehicle = await vehicleService.createVehicle(VehicleInfo);
+    const { customerId, vehicleData } = req.body;
+    console.log("Line 9 in controller", customerId, vehicleData);
+
+    const NewVehicle = await vehicleService.createVehicle({
+      customerId,
+      vehicleData,
+    });
+
+    console.log("Line 17 in controller", NewVehicle);
+
     if (!NewVehicle) {
       return res
         .status(400)
@@ -28,6 +36,7 @@ async function getVehicleInfo(req, res) {
   try {
     const customerId = req.params.customerId;
     const vehicle = await vehicleService.getVehicleInfo(customerId);
+    console.log("Line 31", vehicle);
     if (!vehicle) {
       return res
         .status(400)

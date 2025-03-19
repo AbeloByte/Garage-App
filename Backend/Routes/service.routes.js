@@ -8,10 +8,12 @@ const router = express.Router();
 const serviceController = require("../Controllers/service.controller");
 
 // create a route to add the service
-router.post("/api/add-service", serviceController.addService);
+router.post("/api/add-services", serviceController.addService);
 
 // create a route to get all services
 router.get("/api/services", serviceController.getAllServices);
 
+// create a route to get a delete a service
+router.delete("/api/service/delete/:id", serviceController.deleteService);
 // export the router
 module.exports = router;
