@@ -35,5 +35,11 @@ router.use(vehicleRoute);
 const serviceRoute = require("./service.routes");
 // use the service route
 router.use(serviceRoute);
+
+// import order service
+const orderRoute = require("./order.routes");
+// use the order route
+router.use(orderRoute);
+
 // export the router
 module.exports = router;
