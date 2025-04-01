@@ -1,4 +1,5 @@
 // import the db connection
+const { logger } = require("../libs/common");
 
 const connection = require("../Config/dbconfig");
 

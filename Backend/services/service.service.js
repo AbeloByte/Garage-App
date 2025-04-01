@@ -1,5 +1,6 @@
 // import the database connection
 const connection = require("../Config/dbconfig");
+const { logger } = require("../libs/common");
 
 // function to add a new service to the database
 

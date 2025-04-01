@@ -1,5 +1,5 @@
+const { logger } = require("../libs/common");
 // import the database connection
-
 const connection = require("../Config/dbconfig");
 
 // create a function to create a vehicle

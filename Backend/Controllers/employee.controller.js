@@ -1,3 +1,4 @@
+const { logger } = require("../libs/common");
 // import employee service
 const { response } = require("express");
 const employeeService = require("../services/employee.service");

@@ -1,5 +1,6 @@
 // import bcrypt
 const bcrypt = require("bcrypt");
+const { logger } = require("../libs/common");
 
 //import employee service to get the employee email information
 const employeeService = require("../services/employee.service");

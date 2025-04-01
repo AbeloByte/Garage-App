@@ -1,3 +1,4 @@
+const { logger } = require("../libs/common");
 // import a service.service
 const serviceService = require("../services/service.service");
 

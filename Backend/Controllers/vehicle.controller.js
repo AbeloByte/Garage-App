@@ -1,5 +1,5 @@
 // import service
-
+const { logger } = require("../libs/common");
 const vehicleService = require("../services/vehicle.service");
 
 //  a function to create  vehicle

@@ -1,5 +1,7 @@
 // import query function from the db.config
 const { log } = require("console");
+const { logger } = require("../libs/common");
+
 const connection = require("../Config/dbconfig");
 
 //  import fs module to read the query from a file

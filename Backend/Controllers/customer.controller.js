@@ -1,5 +1,6 @@
 // import customer service
 
+const { logger } = require("../libs/common");
 const customerService = require("../services/customer.service");
 
 // async function to controlle the add customer
