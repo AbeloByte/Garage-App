@@ -20,7 +20,7 @@ async function createVehicle({ customerId, vehicleData }) {
       vehicleData.vehicle_color,
     ]);
 
-    console.log("rows information", rows);
+    logger.log("rows information", rows);
     if (rows.affectedRows === 1) {
       return true;
     } else {

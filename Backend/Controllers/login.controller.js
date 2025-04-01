@@ -32,12 +32,12 @@ async function logIn(req, res, next) {
     const token = jwt.sign(payload, jwtSceret, {
       expiresIn: "10h",
     });
-    // console.log(token);
+    // logger.log(token);
 
     const sendresponse = {
       employee_token: token,
     };
-    // console.log(sendresponse);
+    // logger.log(sendresponse);
 
     res.status(200).json({
       status: "success",
@@ -45,7 +45,7 @@ async function logIn(req, res, next) {
       data: sendresponse,
     });
   } catch (error) {
-    console.log(error);
+    logger.log(error);
     res.status(500).json({
       status: "failed",
       message: "Internal Server Error",

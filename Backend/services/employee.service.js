@@ -70,7 +70,7 @@ async function createNewEmployee(employee) {
       employee_id: employee_id,
     };
   } catch (error) {
-    console.log(error);
+    logger.log(error);
   }
 
   return createdEmployee;
@@ -122,15 +122,15 @@ LEFT JOIN employee_info ei ON e.employee_id = ei.employee_id
 LEFT JOIN employee_role er ON e.employee_id = er.employee_id
 WHERE e.employee_id = ?;`;
   const row = await connection.query(query, [employee_id]);
-  console.log("Row info", row);
+  logger.log("Row info", row);
   return row;
 }
 
 // -------------------Update - Employee Service-------------------
 async function updateEmployee(employee_id, employee_Info) {
   try {
-    // console.log("employee_id", employee_id);
-    // console.log("employee_Info", employee_Info);
+    // logger.log("employee_id", employee_id);
+    // logger.log("employee_Info", employee_Info);
     // a query to update the employee
     const UpdateEmployeeInfo = `UPDATE employee_info SET employee_first_name = ?, employee_last_name = ?,  employee_phone = ?
       
@@ -172,7 +172,7 @@ async function updateEmployee(employee_id, employee_Info) {
 
     return false;
   } catch (error) {
-    console.log(error);
+    logger.log(error);
     return false;
   }
   // query to update the employee
@@ -203,7 +203,7 @@ async function deleteEmployee(employee_id) {
       return true;
     }
   } catch (error) {
-    console.log(error);
+    logger.log(error);
     return false;
   }
 }

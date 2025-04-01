@@ -4,7 +4,7 @@ const employeeService = require("../services/employee.service");
 
 // async function to controlle the add employee
 async function createEmployee(req, res, next) {
-  // console.log(req.headers);
+  // logger.log(req.headers);
   // check if the employee is already exist
   const employeeExists = await employeeService.checkIfEmployeeExist(
     req.body.employee_email
@@ -62,7 +62,7 @@ async function getAllEmployees(req, res, next) {
 async function getSingleEmployee(req, res, next) {
   try {
     const employee_id = req.params.id;
-    console.log("getSingleEmployee Controller line 64", employee_id);
+    logger.log("getSingleEmployee Controller line 64", employee_id);
     const getSingleEmployee = await employeeService.getSingleEmployee(
       employee_id
     );
@@ -90,13 +90,13 @@ async function updateEmployee(req, res, next) {
     const employee_id = req.params.id;
     const employee_Info = req.body;
 
-    console.log("updateEmployee Controller line 91", employee_Info);
+    logger.log("updateEmployee Controller line 91", employee_Info);
     const updateEmployee = await employeeService.updateEmployee(
       employee_id,
       employee_Info
     );
 
-    console.log("updateEmployee Controller line 95", updateEmployee);
+    logger.log("updateEmployee Controller line 95", updateEmployee);
     if (!updateEmployee) {
       res.status(400).json({
         message: "Failed to update the employee",

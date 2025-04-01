@@ -45,7 +45,7 @@ async function createNewCustomer(customer) {
       customer_hash,
     ]);
 
-    // console.log("The row information :::", rows);
+    // logger.log("The row information :::", rows);
 
     if (rows.affectedRows !== 1) {
       return false;
@@ -68,7 +68,7 @@ async function createNewCustomer(customer) {
       customer_hash: customer_hash,
     };
 
-    // console.log("The row information2222 :::", createdCustomer);
+    // logger.log("The row information2222 :::", createdCustomer);
   } catch (error) {
     return false;
   }
@@ -97,7 +97,7 @@ async function getSingleCustomer(customer_id) {
 
     return customer_rows;
   } catch (error) {
-    // console.log("Error retrieving customer", error);
+    // logger.log("Error retrieving customer", error);
     throw error;
   }
 }
@@ -152,14 +152,14 @@ WHERE customer_info.customer_id = ?;
       customer.customer_id,
     ]);
 
-    console.log("The updated customer information :::", UpdateCustomer_rows);
+    logger.log("The updated customer information :::", UpdateCustomer_rows);
     if (UpdateCustomer_rows.affectedRows === 0) {
       return false;
     }
 
     return true;
   } catch (error) {
-    console.log("Error updating customer", error);
+    logger.log("Error updating customer", error);
 
     return false;
   }
@@ -190,7 +190,7 @@ WHERE ci.customer_first_name LIKE ?
       return searchCustomer_rows;
     }
   } catch (error) {
-    // console.log("Error searching for customer", error);
+    // logger.log("Error searching for customer", error);
     logger.error("Error searching for customer", error);
     return false;
   }

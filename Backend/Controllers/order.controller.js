@@ -7,7 +7,7 @@ async function createNewOrder(req, res, next) {
   try {
     const orderInfo = req.body;
 
-    console.log("Order Information that i get from the client side", orderInfo);
+    logger.log("Order Information that i get from the client side", orderInfo);
     const addOrder = await orderService.createOrder(orderInfo);
     if (!addOrder) {
       res.status(400).json({
@@ -21,7 +21,7 @@ async function createNewOrder(req, res, next) {
       });
     }
   } catch (error) {
-    console.log("Error  ::::::::::::", error);
+    logger.log("Error  ::::::::::::", error);
     res.status(400).json({
       error: "Something went wrong while before Checking and adding the order",
     });

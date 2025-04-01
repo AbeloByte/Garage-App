@@ -6,7 +6,7 @@ const customerService = require("../services/customer.service");
 async function addCustomer(req, res, next) {
   try {
     const customerEmail = req.body.customer_email;
-    console.log("Customer Email is here :::: ", customerEmail);
+    logger.log("Customer Email is here :::: ", customerEmail);
     const checkIfCustomerExist = await customerService.checkIfCustomerExist(
       customerEmail
     );
@@ -35,7 +35,7 @@ async function addCustomer(req, res, next) {
       }
     }
   } catch (error) {
-    console.log("Error Nekagnn ::::::::::::", error);
+    logger.log("Error Nekagnn ::::::::::::", error);
     res.status(400).json({
       error:
         "Something went wrong while before Checking and adding the customer",
@@ -93,9 +93,9 @@ async function getAllCustomers(req, res, next) {
 async function editCustomer(req, res, next) {
   try {
     const customer_id = req.params.id;
-    console.log("Customer ID :::: ", customer_id);
+    logger.log("Customer ID :::: ", customer_id);
     const customerInfo = req.body;
-    console.log("Customer Information  from the client side", customerInfo);
+    logger.log("Customer Information  from the client side", customerInfo);
 
     // call the service to edit the customer
     //
@@ -105,7 +105,7 @@ async function editCustomer(req, res, next) {
       customerInfo
     );
 
-    console.log("Edit Customer Information :::: ", editCustomerInfo);
+    logger.log("Edit Customer Information :::: ", editCustomerInfo);
     if (!editCustomerInfo) {
       res.status(400).json({
         message:
@@ -128,7 +128,7 @@ async function editCustomer(req, res, next) {
 async function searchCustomer(req, res, next) {
   try {
     const customer_name = req.params.name;
-    console.log("Customer Name :::: ", customer_name);
+    logger.log("Customer Name :::: ", customer_name);
     const searchCustomer = await customerService.searchCustomer(customer_name);
     if (!searchCustomer) {
       res.status(404).json({

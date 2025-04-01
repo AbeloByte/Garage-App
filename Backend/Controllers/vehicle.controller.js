@@ -6,14 +6,14 @@ const vehicleService = require("../services/vehicle.service");
 async function createVehicle(req, res) {
   try {
     const { customerId, vehicleData } = req.body;
-    console.log("Line 9 in controller", customerId, vehicleData);
+    logger.log("Line 9 in controller", customerId, vehicleData);
 
     const NewVehicle = await vehicleService.createVehicle({
       customerId,
       vehicleData,
     });
 
-    console.log("Line 17 in controller", NewVehicle);
+    logger.log("Line 17 in controller", NewVehicle);
 
     if (!NewVehicle) {
       return res
@@ -36,7 +36,7 @@ async function getVehicleInfo(req, res) {
   try {
     const customerId = req.params.customerId;
     const vehicle = await vehicleService.getVehicleInfo(customerId);
-    console.log("Line 31", vehicle);
+    logger.log("Line 31", vehicle);
     if (!vehicle) {
       return res
         .status(400)

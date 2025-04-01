@@ -48,7 +48,7 @@ async function login(employeeData) {
 
     return returned_employeeInformation;
   } catch (error) {
-    console.log(error);
+    logger.log(error);
     return {
       status: "failed",
       message: "Internal Server Error Occured",
