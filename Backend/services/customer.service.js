@@ -169,8 +169,17 @@ WHERE customer_info.customer_id = ?;
 // function to search for a customer
 async function searchCustomer(customer_name) {
   try {
-    const searchCustomerQuery = `SELECT * FROM customer_info WHERE customer_first_name LIKE ? OR customer_last_name LIKE ?`;
+    const searchCustomerQuery = `SELECT * 
+FROM customer_info ci
+JOIN customer_identifier ci_id ON ci.customer_id = ci_id.customer_id
+WHERE ci.customer_first_name LIKE ? 
+   OR ci.customer_last_name LIKE ? 
+   OR ci_id.customer_email LIKE ? 
+   OR ci_id.customer_phone_number LIKE ?;
+`;
     const searchCustomer_rows = await connection.query(searchCustomerQuery, [
+      `%${customer_name}%`,
+      `%${customer_name}%`,
       `%${customer_name}%`,
       `%${customer_name}%`,
     ]);
@@ -181,7 +190,8 @@ async function searchCustomer(customer_name) {
       return searchCustomer_rows;
     }
   } catch (error) {
-    console.log("Error searching for customer", error);
+    // console.log("Error searching for customer", error);
+    logger.error("Error searching for customer", error);
     return false;
   }
 }
