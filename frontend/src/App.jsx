@@ -18,12 +18,21 @@ import Header from "./markup/components/Header/Header";
 import Footer from "./markup/components/Footer/Footer";
 import UnAuthorized from "./markup/pages/UnAuthorized";
 import PrivateAuthRoute from "./markup/components/Auth/PrivateAuthRoute";
-
+import ViewAllCustomers from "./markup/pages/Admin/ViewAllCustomers";
 // pages
+
+import Dashboard from "./markup/pages/Admin/Dashboard";
 
 import Customers from "./markup/pages/Admin/Customers";
 import Orders from "./markup/pages/Admin/Orders";
 import Employees from "./markup/pages/Admin/Employees";
+
+import EditCustomer from "./markup/pages/Admin/EditCustomer";
+import EditEmployee from "./markup/pages/Admin/EditEmployeeInfo";
+import CustomerProfilePage from "./markup/pages/Admin/CustomerProfilePage";
+import ServicePage from "./markup/pages/Admin/ServicePage";
+import OrderPage from "./markup/pages/Admin/OrdersPage";
+import EditServicePage from "./markup/pages/Admin/EditServicePage";
 
 function App() {
   return (
@@ -42,7 +51,25 @@ function App() {
             </PrivateAuthRoute>
           }
         />
-        <Route path="/admin/orders" element={<Orders />} />
+        <Route
+          path="/admin"
+          element={
+            <PrivateAuthRoute roles={[2, 3]}>
+              <Dashboard />
+            </PrivateAuthRoute>
+          }
+        />
+
+        <Route
+          path="/admin/all-customers"
+          element={
+            <PrivateAuthRoute roles={[2, 3]}>
+              <ViewAllCustomers />
+            </PrivateAuthRoute>
+          }
+        />
+
+        {/* <Route path="/admin/orders" element={<Orders />} /> */}
         <Route path="/admin/employees" element={<Employees />} />
         <Route
           path="/admin/add-employee"
@@ -52,7 +79,70 @@ function App() {
             </PrivateAuthRoute>
           }
         />
+
+        {/* edit Customer  */}
+        <Route
+          path="/admin/customer/:customerId"
+          element={
+            <PrivateAuthRoute roles={[2, 3]}>
+              <EditCustomer />
+            </PrivateAuthRoute>
+          }
+        />
+        <Route
+          path="/admin/employee/:employeeId"
+          element={
+            <PrivateAuthRoute roles={[3]}>
+              <EditEmployee />
+            </PrivateAuthRoute>
+          }
+        ></Route>
+        <Route
+          path="/admin/customer/:customerId/vehicles/"
+          element={
+            <PrivateAuthRoute roles={[3]}>
+              <CustomerProfilePage />
+            </PrivateAuthRoute>
+          }
+        ></Route>
+        {/* Add service */}
+        <Route
+          path="/admin/services"
+          element={
+            <PrivateAuthRoute roles={[3]}>
+              <ServicePage />
+            </PrivateAuthRoute>
+          }
+        ></Route>
+        {/* Add Order */}
+        <Route
+          path="/admin/new-order"
+          element={
+            <PrivateAuthRoute roles={[3]}>
+              <Orders />
+            </PrivateAuthRoute>
+          }
+        ></Route>
+        {/* See Orders */}
+        <Route
+          path="/admin/orders"
+          element={
+            <PrivateAuthRoute roles={[3]}>
+              <OrderPage />
+            </PrivateAuthRoute>
+          }
+        ></Route>
+        <Route
+          path="/admin/service/:id"
+          element={
+            <PrivateAuthRoute roles={[3]}>
+              <EditServicePage />
+            </PrivateAuthRoute>
+          }
+        ></Route>
       </Routes>
+      {/* edit Employee Information  */}
+
       <Footer />
     </>
   );
