@@ -4,7 +4,7 @@ const apiUrl = import.meta.env.VITE_API_URL;
 // function for fetching and sending data to the backend
 
 const addVehicle = async (customerId, vehicleData) => {
-  const response = await fetch(`${apiUrl}/api/vehicles`, {
+  const response = await fetch(`${apiUrl}/api/vehicle`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ customerId, vehicleData }), // Attach customerId

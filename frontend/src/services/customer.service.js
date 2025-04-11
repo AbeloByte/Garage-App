@@ -66,6 +66,19 @@ const searchCustomer = async (searchTerm) => {
   return response.json(); // Convert response to JSON
 };
 
+// function to get customer order history
+const getCustomerOrders = async (customerId) => {
+  const requestOptions = {
+    method: "GET",
+    headers: { "Content-Type": "application/json" },
+  };
+  const response = await fetch(
+    `${apiUrl}/api/order/customer/${customerId}`,
+    requestOptions
+  );
+  return response.json(); // Convert response to JSON
+};
+
 // export the function
 const customerService = {
   addCustomer,
@@ -73,5 +86,6 @@ const customerService = {
   editCustomerInfo,
   getCustomerbyID,
   searchCustomer,
+  getCustomerOrders,
 };
 export default customerService;

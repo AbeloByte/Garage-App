@@ -15,4 +15,22 @@ router.get("/api/orders", orderController.getAllOrders);
 // create a route to get a single order
 router.get("/api/order/:id", orderController.getSingleOrder);
 
+// router to update the service status
+router.put(
+  "/api/order/service/update/status/:id",
+  orderController.updateServiceStatus
+);
+
+// create a route to get an orderd service status for that specific order
+router.get(
+  "/api/order/service/status/:id",
+  orderController.getOrderServiceStatus
+);
+
+// create route to get order information using Customer ID
+router.get(
+  "/api/order/customer/:customerId",
+  orderController.getOrderByCustomerId
+);
+
 module.exports = router;

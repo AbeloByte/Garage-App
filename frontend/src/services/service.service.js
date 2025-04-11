@@ -12,14 +12,14 @@ const addService = async (serviceData) => {
   return response;
 };
 // function to get all services
-const getAllServices = async (token) => {
+const getAllServices = async () => {
   const requestOptions = {
     method: "GET",
     headers: { "Content-Type": "application/json" },
-    "x-access-token": token,
   };
   const response = await fetch(`${apiUrl}/api/services`, requestOptions);
-  return response;
+
+  return response.json();
 };
 // function to edit service information
 const editServiceInfo = async (serviceId, updatedData) => {
@@ -35,6 +35,18 @@ const editServiceInfo = async (serviceId, updatedData) => {
   return response.json();
 };
 
+// function to get service information by id
+const getServiceById = async (service_id) => {
+  const requestOptions = {
+    method: "GET",
+    headers: { "Content-Type": "application/json" },
+  };
+  const response = await fetch(
+    `${apiUrl}/api/service/${service_id}`,
+    requestOptions
+  );
+  return response.json();
+};
 // function to delete service information
 const deleteService = async (service_id) => {
   const requestOptions = {
@@ -48,11 +60,29 @@ const deleteService = async (service_id) => {
   return response.json();
 };
 
+// service.js
+
+const updateServiceStatus = async (serviceId, newStatus) => {
+  const requestOptions = {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ active_status: newStatus }),
+  };
+
+  const response = await fetch(
+    `${apiUrl}/api/service/status/${serviceId}`,
+    requestOptions
+  );
+  return response.json();
+};
+
 const Services_services = {
   addService,
   getAllServices,
   editServiceInfo,
   deleteService,
+  getServiceById,
+  updateServiceStatus,
 };
 
 export default Services_services;
