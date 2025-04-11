@@ -1,10 +1,14 @@
 /* eslint-disable no-unused-vars */
 // import useState
-import React, { use, useState } from "react";
+import React, { useState } from "react";
+// import useNavigate
+import { useNavigate } from "react-router-dom";
 // import employeeService
 import employeeService from "../../../../services/employee.service";
 import { useAuth } from "../../../../context/AuthContext.jsx";
 function AddEmployeeForm() {
+  // useNavigate
+  const navigate = useNavigate();
   // create a state variable for the each form data
   const [employee_email, setEmployeeEmail] = useState("");
   const [employee_first_name, setEmployeeFirstName] = useState("");
@@ -99,10 +103,11 @@ function AddEmployeeForm() {
           setServerError(data.error);
         } else {
           setSuccess(true);
+          setSuccess(data.message);
           setServerError("");
           // timeout to redirect to the employee page
           setTimeout(() => {
-            window.location.href = "/";
+            navigate("/admin/employees");
           }, 2000);
         }
       })
@@ -124,6 +129,7 @@ function AddEmployeeForm() {
           <div className="contact-title">
             <h2>Add a new employee</h2>
           </div>
+          {success && <div className="alert alert-success">{success}</div>}
           <div className="row clearfix">
             <div className="form-column col-lg-7">
               <div className="inner-column">

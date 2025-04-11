@@ -1,5 +1,6 @@
 /* eslint-disable no-unused-vars */
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 import AdminMenu from "../AddMenu/AddMenu";
 import customerService from "../../../../services/customer.service";
@@ -15,6 +16,8 @@ function AddCustomer() {
   const [emailError, setEmailError] = useState("");
   const [firstNameRequired, setfirstNameRequired] = useState("");
   const [success, setSuccess] = useState("");
+
+  const navigate = useNavigate();
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
@@ -65,7 +68,9 @@ function AddCustomer() {
           setServerError(data.message);
         } else {
           setSuccess(data.message);
+
           setServerError("");
+          navigate("/admin/all-customers");
           // setTimeout(() => {
           //   window.location.href = "/";
           // }, 2000);
