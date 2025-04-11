@@ -8,13 +8,18 @@ import { Table, Button } from "react-bootstrap";
 import { useAuth } from "../../../../context/AuthContext";
 
 // import EmployeeServices
+import { Link } from "react-router-dom";
 
+import { SquarePen, Trash2 } from "lucide-react";
 // import date formater
 import { format } from "date-fns";
 function EmployeeList() {
   const [employeeList, setEmployeeList] = useState([]);
   const [apiError, setapiError] = useState("");
   const [apiErrorMsg, setapiErrorMsg] = useState(null);
+
+  const [successOnDelete, setSuccessOnDelete] = useState(false);
+  const [errorOnDelete, setErrorOnDelete] = useState(false);
   const { employee_data } = useAuth();
 
   let token = null;
@@ -48,6 +53,28 @@ function EmployeeList() {
     });
   }, []);
 
+  const handleDelete = async (employeeId) => {
+    if (!window.confirm("Are you sure you want to delete this employee?")) {
+      return;
+    }
+
+    try {
+      const response = await employeeServices.deleteEmployee(employeeId);
+      if (response.status === "true") {
+        setSuccessOnDelete(response.message);
+        console.log(response);
+        employeeServices.getAllEmployee();
+        // Refresh employee list after deletion
+        window.location.reload();
+      } else {
+        setErrorOnDelete(response.message);
+      }
+    } catch (error) {
+      console.error("Error deleting employee:", error);
+      setErrorOnDelete("Something went wrong. Please try again later.");
+    }
+  };
+
   // console.log(employeeList);
 
   return (
@@ -67,6 +94,18 @@ function EmployeeList() {
               <div>
                 <div className="contact-title">
                   <h1>Employees </h1>
+
+                  {successOnDelete && (
+                    <div className="alert alert-success" role="alert">
+                      {successOnDelete}
+                    </div>
+                  )}
+
+                  {errorOnDelete && (
+                    <div className="alert alert-danger" role="alert">
+                      {errorOnDelete}
+                    </div>
+                  )}
                 </div>
                 <Table striped bordered hover>
                   <thead>
@@ -98,7 +137,18 @@ function EmployeeList() {
                           <td>{employee.company_role_name}</td>
                           <td>
                             <div className="edit-delete-icons">
-                              edit | delete
+                              <Link
+                                to={`/admin/employee/${employee.employee_id}`}
+                              >
+                                <SquarePen />
+                              </Link>
+                              <button
+                                onClick={() =>
+                                  handleDelete(employee.employee_id)
+                                }
+                              >
+                                <Trash2 />
+                              </button>
                             </div>
                           </td>
                         </tr>

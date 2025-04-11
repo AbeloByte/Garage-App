@@ -1,8 +1,8 @@
 import React from "react";
-import AddOrder from "../../components/Admin/AddOrder/AddOrder";
 import AddMenu from "../../components/Admin/AddMenu/AddMenu";
+import EditService from "../../components/Admin/AddServices/EditService";
 
-function Orders() {
+function EditServicePage() {
   return (
     <>
       <div className="container-fluid admin-pages">
@@ -11,9 +11,7 @@ function Orders() {
             <AddMenu />
           </div>
           <div className="col-md-9 admin-right-side">
-            {/* <h1>Employee Page is Here</h1>
-             */}
-            <AddOrder />
+            <EditService />
           </div>
         </div>
       </div>
@@ -21,4 +19,4 @@ function Orders() {
   );
 }
 
-export default Orders;
+export default EditServicePage;

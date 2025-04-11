@@ -17,8 +17,8 @@ const PrivateAuthRoute = ({ roles, children }) => {
     isLoggedIn.then((response) => {
       if (response.employee_token) {
         setIsLogged(true);
-        console.log("Employee Role ID : ", response.employee_role);
-        console.log("Roles : ", roles);
+        // console.log("Employee Role ID : ", response.employee_role);
+        // console.log("Roles : ", roles);
         if (
           roles &&
           roles.length > 0 &&
