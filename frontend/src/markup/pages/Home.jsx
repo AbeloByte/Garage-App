@@ -1,24 +1,85 @@
 import React from "react";
-import { Container, Row, Col, Button, Card } from "react-bootstrap";
+import { Container, Row, Col, Button } from "react-bootstrap";
 import { FaPlayCircle } from "react-icons/fa";
 import { FaArrowRight } from "react-icons/fa6";
 import oil from "../../assets/images/Display-Images/oil.jpg";
 import speedGage from "../../assets/images/Display-Images/speed-Gage.jpg";
 import gear from "../../assets/images/Display-Images/Gear.jpg";
 import carOil from "../../assets/images/Display-Images/carOil.jpg";
+import turbocharger from "../../assets/images/icons/Turbocharger.png";
+import brake from "../../assets/images/Service Images/brake-disk.png";
+import autoTransmission from "../../assets/images/Service Images/automatic-transmission.png";
+import flatTire from "../../assets/images/Service Images/flat-tire.png";
+import sprayGun from "../../assets/images/Service Images/spray-gun.png";
+import carEngine from "../../assets/images/Service Images/car-engine.png";
+import carimage from "../../assets/images/Display-Images/car-col.png";
+import mechanic from "../../assets/images/icons/car.png";
+import priceTag from "../../assets/images/icons/price-tag.png";
+import trophy from "../../assets/images/icons/trophy.png";
+import wrench from "../../assets/images/icons/wrench.png";
+import { Check } from "lucide-react";
+
+import { Link } from "react-router-dom";
+
+import Card from "../components/Admin/Cards/Card";
 function Home() {
+  const services = [
+    {
+      title: "Performance Upgrade",
+      img: turbocharger,
+      category: "SERVICE AND REPAIRS",
+      link: "#",
+      linkText: "Read More + ",
+    },
+    {
+      title: "Transmission Services",
+      img: autoTransmission,
+      category: "SERVICE AND REPAIRS",
+      link: "#",
+      linkText: "Read More + ",
+    },
+    {
+      title: "Break Repair & Service",
+      img: brake,
+      category: "SERVICE AND REPAIRS",
+      link: "#",
+      linkText: "Read More + ",
+    },
+    {
+      title: "Engine Service & Repair",
+      img: carEngine,
+      category: "SERVICE AND REPAIRS",
+      link: "#",
+      linkText: "Read More + ",
+    },
+    {
+      title: "Tyre & Wheels",
+      img: flatTire,
+      category: "SERVICE AND REPAIRS",
+      link: "#",
+      linkText: "Read More + ",
+    },
+    {
+      title: "Denting & Painting",
+      img: sprayGun,
+      category: "SERVICE AND REPAIRS",
+      link: "#",
+      linkText: "Read More + ",
+    },
+  ];
+
   return (
     <>
       <>
         <div className="homepage ">
           {/* Hero Section */}
-          <div className="hero-section   hero-Img contact-section ">
-            <div className="contact-section  hero-content d-flex justify-content-start align-items-center flex-column">
-              <div className="contact-title ml-5 heropage-title ">
+          <div className="hero-section    hero-Img contact-section ">
+            <div className=" hero-contact-title   hero-content d-flex justify-content-start align-items-center flex-column">
+              <div className=" ml-5 heropage-title ">
                 <h5 className="text-white">Working since 1992</h5>
-                <h1 className="fw-bold text-white fs-1">
+                <h2 className="fw-bold text-white fs-1">
                   Tuneup Your Car to Next Level
-                </h1>
+                </h2>
 
                 <div className="d-flex align-items-center gap-2 mt-3 contact-title">
                   <FaPlayCircle className="" color="red" size={70} /> WATCH
@@ -71,91 +132,165 @@ function Home() {
           </section>
 
           {/* Services Section */}
-          {/* <Container className="my-5">
-            <h3 className="mb-4">Our Services</h3>
-            <Row>
-              {[
-                "Performance Upgrade",
-                "Transmission Services",
-                "Break Repair & Service",
-                "Engine Service & Repair",
-                "Tyre & Wheels",
-                "Denting & Painting",
-              ].map((service, index) => (
-                <Col md={4} className="mb-4" key={index}>
-                  <Card className="h-100">
-                    <Card.Body>
-                      <Card.Title>{service}</Card.Title>
-                      <Button variant="link" className="p-0">
-                        Read More +
-                      </Button>
-                    </Card.Body>
-                  </Card>
-                </Col>
-              ))}
-            </Row>
-          </Container> */}
-          <section className="container">
-            <h2 className="contact-title  mb-4">Our Services</h2>
-            <div></div>
+          <section className="service-section quality-section">
+            <div className="container  py-5">
+              <div className="quality-contact-title">
+                <h2 className=" mb-4">Our Services</h2>
+                <p className="paragraph-content">
+                  Bring to the table win-win survival strategies to ensure
+                  proactive domination. At the end of the day, going forward, a
+                  new normal that has evolved from generation X is on the runway
+                  heading towards a streamlined cloud solution.
+                </p>
+              </div>
+
+              <div className="row g-7 mt-5">
+                {services.map((card, index) => (
+                  <Card
+                    key={index}
+                    category={card.category}
+                    title={card.title}
+                    link={card.link}
+                    img={card.img}
+                    linkText={card.linkText}
+                  />
+                ))}
+              </div>
+            </div>
           </section>
 
           {/* Quality Service Section */}
-          <div className="bg-danger text-white py-5 text-center">
-            <Container>
-              <h4>Quality Service And Customer Satisfaction !!</h4>
-              <p>
-                We utilize the most recent symptomatical gear to ensure your
-                vehicle is fitted...
-              </p>
-            </Container>
-          </div>
+          <section className=" quality-service-section ">
+            <div className="container d-flex ">
+              <div className="quality-service-content">
+                <h2 className="text-white fw-bold mb-4">
+                  Quality Service And <br />
+                  Customer Satisfaction !!
+                </h2>
+                <p className="text-white mb-0  text-start ">
+                  We utilize the most recent symptomatic gear to ensure your
+                  vehicle is fixed or adjusted appropriately and in an opportune
+                  manner. We are an individual from Professional Auto Service, a
+                  first class execution arrange, where free assistance offices
+                  share shared objectives of being world-class car
+                  administration focuses.
+                </p>
+              </div>
+              <img
+                src={speedGage}
+                alt=""
+                className="img-fluid d-none d-lg-block col-md-5 "
+              />
+            </div>
+          </section>
 
           {/* Why Choose Us & Additional Services */}
-          <Container className="my-5">
-            <Row>
-              <Col md={6}>
-                <h4>Why Choose Us</h4>
-                <ul>
-                  <li>Certified Expert Mechanics</li>
-                  <li>Fast And Quality Service</li>
-                  <li>Best Prices in Town</li>
-                  <li>Awarded Workshop</li>
-                </ul>
-              </Col>
-              <Col md={6}>
-                <h4>Additional Services</h4>
-                <ul>
-                  <li>General Auto Repair & Maintenance</li>
-                  <li>Transmission Repair & Replacement</li>
-                  <li>Tire Repair and Replacement</li>
-                  <li>State Emissions Inspection</li>
-                  <li>Electrical Diagnostics</li>
-                  <li>Full System Repairs</li>
-                  <li>And more...</li>
-                </ul>
-              </Col>
-            </Row>
-          </Container>
+          <section className="my-5  ">
+            <div className="container d-flex flex-column flex-md-row justify-content-between ">
+              <div className="quality-section col-md-6 mb-4">
+                <div className="quality-contact-title">
+                  <h2>Why Choose Us</h2>
+                </div>
+                <p>
+                  Bring to the table win-win survival strategies to ensure
+                  proactive domination. At the end of the day, going forward, a
+                  new normal that has evolved from generation heading towards.
+                </p>
+                <div className="quality-service-lists">
+                  <div>
+                    <span>
+                      <img src={mechanic} alt="" />
+                    </span>
+                    <h4>Certified Expert Mechanics</h4>
+                  </div>
+                  <div>
+                    <span>
+                      <img src={wrench} alt="" />
+                    </span>
+                    <h4>Fast And Quah4ty Service</h4>
+                  </div>
+                  <div>
+                    <span>
+                      <img src={priceTag} alt="" />
+                    </span>
+                    <h4>Best Prices in Town</h4>
+                  </div>
+                  <div>
+                    <span>
+                      <img src={trophy} alt="" />
+                    </span>
+                    <h4>Awarded Workshop</h4>
+                  </div>
+                </div>
+              </div>
+              <div className="col-md-6 ">
+                <div className="quality-section ">
+                  <div className="quality-contact-title">
+                    <h2>Additional Services</h2>
+                  </div>
+                </div>
+                <div className="d-flex justify-content-center align-items-center additionalServiceList">
+                  <img src={carimage} alt="" className="qualityServiceimg" />
+                  <div className="quality-service-second ml-4">
+                    <ul className="list">
+                      <li> General Auto Repair & Maintenance</li>
+                      <li> Transmission Repair & Replacement</li>
+                      <li> Tire Repair and Replacement</li>
+                      <li> State Emissions Inspection</li>
+                      <li> Break Job / Break Services</li>
+                      <li> Electrical Diagnostics</li>
+                      <li> Fuel System Repairs</li>
+                      <li> Starting and Charging Repair</li>
+                      <li> Steering and Suspension Work</li>
+                      <li> Emission Repair Facidivty</li>
+                      <li> Wheel Adivgnment</li>
+                      <li> Computer Diagaonstic Testing</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
 
           {/* Leadership Section */}
-          <div className="bg-dark text-white py-5 text-center">
-            <Container>
-              <h6>Working since 1992</h6>
-              <h2>We are leader in Car Mechanical Work</h2>
-              <Button variant="danger" className="mt-3">
-                WATCH INTRO VIDEO
-              </Button>
-            </Container>
+          <div className="leadership-section py-5 ">
+            <div className="d-flex container align-items-start flex-column leadership-contact-title text-white ">
+              <h5 className="mb-3">Working since 1992</h5>
+              <h2 className="text-white   mb-4">
+                We are leader <br />
+                in Car Mechanical Work
+              </h2>
+
+              <div className="d-flex align-items-center gap-2 mt-3 contact-title">
+                <FaPlayCircle className="" color="red" size={70} />
+                <h6 className="ml-3">
+                  {" "}
+                  WATCH INTRO VIDEO <br />
+                  ABOUT US
+                </h6>
+              </div>
+            </div>
           </div>
 
           {/* Appointment Call-To-Action */}
-          <div className="bg-danger text-white text-center py-4">
-            <Container>
-              <h5>Schedule Your Appointment Today</h5>
-              <h3>1800.456.7890</h3>
-              <Button variant="light">CONTACT US</Button>
-            </Container>
+          <div className=" text-white appointment-section p-5 text-center py-4">
+            <div className="container appointment-section-tag d-flex flex-wrap justify-content-between align-items-center text-white">
+              <div>
+                <h2>Schedule Your Appointment Today</h2>
+                <h6>Your Automotive Repair & Maintenance Service Specialist</h6>
+              </div>
+              <div>
+                <h2>1800.456.7890</h2>
+              </div>
+              <div className="Contact-btn">
+                <button className="py-3 px-5 ">
+                  <Link to="/contact" className="text-decoration-none">
+                    <span className="mr-2">CONTACT US </span>{" "}
+                    <FaArrowRight color="black" />
+                  </Link>
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       </>

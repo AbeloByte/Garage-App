@@ -33,6 +33,7 @@ import CustomerProfilePage from "./markup/pages/Admin/CustomerProfilePage";
 import ServicePage from "./markup/pages/Admin/ServicePage";
 import OrderPage from "./markup/pages/Admin/OrdersPage";
 import EditServicePage from "./markup/pages/Admin/EditServicePage";
+import About from "./markup/pages/About";
 
 function App() {
   return (
@@ -42,6 +43,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/unauthorized" element={<UnAuthorized />} />
+        <Route path="/about" element={<About />} />
 
         <Route
           path="/admin/add-customers"
