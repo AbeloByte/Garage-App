@@ -11,6 +11,7 @@ import "./assets/template_assets/css/bootstrap.css";
 import "./assets/template_assets/css/color.css";
 import "./assets/template_assets/css/style.css";
 import "./assets/template_assets/css/responsive.css";
+import "leaflet/dist/leaflet.css";
 
 // import custome css file
 import "./assets/styles/custome.css";
@@ -34,6 +35,9 @@ import ServicePage from "./markup/pages/Admin/ServicePage";
 import OrderPage from "./markup/pages/Admin/OrdersPage";
 import EditServicePage from "./markup/pages/Admin/EditServicePage";
 import About from "./markup/pages/About";
+import Services from "./markup/pages/Services";
+import Contact from "./markup/pages/Contact";
+import TrackProgess from "./markup/pages/TrackProgess";
 
 function App() {
   return (
@@ -44,6 +48,9 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/unauthorized" element={<UnAuthorized />} />
         <Route path="/about" element={<About />} />
+        <Route path="/services" element={<Services />} />
+        <Route path="/contact" element={<Contact />} />
+        <Route path="/track-progress" element={<TrackProgess />} />
 
         <Route
           path="/admin/add-customers"

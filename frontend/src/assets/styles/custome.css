@@ -1050,8 +1050,8 @@ input:disabled {
   font-size: 18px;
   padding: 50px;
 }
-
-.Contact-btn {
+.appointment-section {
+  background-color: #f5f4f7;
 }
 
 /* =========================================== About Page ============================================*/
@@ -1068,4 +1068,90 @@ input:disabled {
 .about-hero-content p {
   color: #797979;
   font-weight: 400;
+}
+
+.about-top-section {
+  background: url("../images/Display-Images/Service-banner.jpg");
+  background-size: cover;
+  height: 50vh;
+  color: #fff;
+  padding: 50px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.about-top-content {
+  padding-top: 40px;
+  width: 50%;
+  line-height: 1.4em;
+}
+
+.about-top-section h1 {
+  color: #fff;
+  font-size: 60px;
+  font-weight: 600;
+}
+
+.about-top-section-title {
+  font-weight: 600;
+  margin-bottom: 20px;
+  display: inline-block;
+}
+
+/* ======================== Contact Section ======================== */
+
+.map-section {
+  border: 2px solid rgb(255, 255, 255);
+}
+
+.map-section {
+  width: 60%;
+  /* min-height: 300px; */
+  /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); */
+}
+
+.contact-info {
+  width: 30%;
+  line-height: 2rem;
+}
+
+.contact-info p {
+  color: #636262;
+}
+
+.lists {
+  margin-top: 20px;
+  padding: 35px 0 0 0;
+}
+
+@media (max-width: 560px) {
+  .hero-section {
+    height: 50vh;
+  }
+  .contact-info {
+    width: 100%;
+    line-height: 2rem;
+  }
+  .map-section {
+    width: 100%;
+    margin-bottom: 30px;
+  }
+}
+
+/* ======================== Progress Tracker ===================== */
+.progess-container {
+  background-color: #ecedef;
+}
+
+.progress-cards div {
+  background-color: #ffffff;
+}
+
+.personal-info .vehicle-info .progress-services {
+}
+
+.customer-info {
+  border-bottom: #ee0c09 3px solid;
+  width: 100%;
 }
