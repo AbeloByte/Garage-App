@@ -362,6 +362,94 @@ LIMIT 0, 25;`;
   }
 }
 
+// Function to get order by order_hash
+async function getOrderByHash(orderHash) {
+  try {
+    const getOrderInfo = `SELECT 
+      o.order_id,
+      o.order_date,
+      o.active_order,
+      o.order_hash,
+
+      -- Customer Information
+      ci.customer_email,
+      ci.customer_phone_number,
+      c_info.customer_first_name,
+      c_info.customer_last_name,
+
+      -- Vehicle Information
+      cv.vehicle_year,
+      cv.vehicle_make,
+      cv.vehicle_model,
+      cv.vehicle_type,
+      cv.vehicle_mileage,
+      cv.vehicle_tag,
+      cv.vehicle_serial,
+      cv.vehicle_color,
+
+      -- Order Information
+      oi.order_total_price,
+      oi.estimated_completion_date,
+      oi.completion_date,
+      oi.additional_request,
+      oi.notes_for_customer,
+      oi.additional_requests_completed,
+
+      -- Status Information
+      os.order_status,
+
+      -- Services
+      (
+        SELECT JSON_ARRAYAGG(
+          JSON_OBJECT(
+            'service_name', cs.service_name,
+            'service_description', cs.service_description,
+            'service_completed', osvc.service_completed
+          )
+        )
+        FROM order_services osvc
+        JOIN common_services cs ON osvc.service_id = cs.service_id
+        WHERE osvc.order_id = o.order_id
+      ) AS services
+
+    FROM orders o
+    -- Customer Tables
+    JOIN customer_identifier ci ON o.customer_id = ci.customer_id
+    LEFT JOIN (
+      SELECT customer_id, customer_first_name, customer_last_name
+      FROM customer_info
+      WHERE (customer_id, customer_info_id) IN (
+        SELECT customer_id, MAX(customer_info_id)
+        FROM customer_info
+        GROUP BY customer_id
+      )
+    ) c_info ON o.customer_id = c_info.customer_id
+    -- Vehicle Table
+    JOIN customer_vehicle_info cv ON o.vehicle_id = cv.vehicle_id
+    -- Order Tables
+    JOIN order_info oi ON o.order_id = oi.order_id
+    LEFT JOIN (
+      SELECT order_id, order_status
+      FROM order_status
+      WHERE (order_id, order_status_id) IN (
+        SELECT order_id, MAX(order_status_id)
+        FROM order_status
+        GROUP BY order_id
+      )
+    ) os ON o.order_id = os.order_id
+
+    WHERE o.order_hash = ?
+    LIMIT 1;`;
+
+    const [order] = await connection.query(getOrderInfo, [orderHash]);
+    if (!order) throw new Error("Order not found");
+    return order;
+  } catch (error) {
+    console.error("Error fetching order:", error);
+    throw error;
+  }
+}
+
 module.exports = {
   createOrder,
   getAllOrders,
@@ -369,4 +457,5 @@ module.exports = {
   updateServiceStatus,
   getOrder_ServiceStatus,
   getOrderByCustomerId,
+  getOrderByHash,
 };

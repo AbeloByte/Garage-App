@@ -321,8 +321,8 @@ input:disabled {
 }
 
 .custom-checkBox {
-  transform: scale(1.5); /* Increase the checkbox size */
-  margin-right: 10px; /* Adjust spacing */
+  transform: scale(1.5);
+  margin-right: 10px;
 }
 
 /* .search-wrapper {
@@ -1141,17 +1141,30 @@ input:disabled {
 
 /* ======================== Progress Tracker ===================== */
 .progess-container {
-  background-color: #ecedef;
+  background: url("../images/Display-Images/service-background.png");
 }
-
-.progress-cards div {
+/* 
+.progress-cards {
   background-color: #ffffff;
-}
-
-.personal-info .vehicle-info .progress-services {
-}
+} */
 
 .customer-info {
   border-bottom: #ee0c09 3px solid;
-  width: 100%;
+  width: 50%;
+}
+
+.vehicle-info {
+  border-bottom: #ee0c09 3px solid;
+  width: 50%;
+}
+
+.progress-services {
+  border-bottom: #ee0c09 3px solid;
+}
+
+.vehicle-info {
+  border-bottom: #ee0c09 3px solid;
+}
+.customer-info {
+  border-bottom: #ee0c09 3px solid;
 }

@@ -152,6 +152,31 @@ async function getOrderByCustomerId(req, res, next) {
   }
 }
 
+// function to get customer order information using hash
+async function getOrderByHash(req, res, next) {
+  try {
+    const hash = req.params.hash;
+    console.log("the hash is : ", hash);
+    const order = await orderService.getOrderByHash(hash);
+
+    console.log("the order is : ", order);
+    if (!order) {
+      res.status(400).json({
+        message: "Failed to fetch order",
+      });
+    } else {
+      res.status(200).json({
+        message: "Order fetched successfully",
+        data: order,
+      });
+    }
+  } catch (error) {
+    res.status(500).json({
+      message: "Internal server error while fetching order",
+    });
+  }
+}
+
 module.exports = {
   createNewOrder,
   getAllOrders,
@@ -159,4 +184,5 @@ module.exports = {
   updateServiceStatus,
   getOrderServiceStatus,
   getOrderByCustomerId,
+  getOrderByHash,
 };

@@ -33,4 +33,7 @@ router.get(
   orderController.getOrderByCustomerId
 );
 
+// router to get customer order using hash
+router.get("/api/order/customer/hash/:hash", orderController.getOrderByHash);
+
 module.exports = router;

@@ -65,12 +65,26 @@ const getOrderServicesStatus = async (orderId) => {
   return response.json();
 };
 
+// function to get customer and vehicle information and orderinformation by hash
+const getCustomerAndVehicleInfo = async (order_hash) => {
+  const requestOptions = {
+    method: "GET",
+    headers: { "Content-Type": "application/json" },
+  };
+  const response = await fetch(
+    `${apiUrl}/api/order/customer/hash/${order_hash}`,
+    requestOptions
+  );
+  return response.json();
+};
+
 const Orders_services = {
   createOrder,
   getAllOrders,
   updateOrderStatus,
   getOrderById,
   getOrderServicesStatus,
+  getCustomerAndVehicleInfo,
 };
 
 export default Orders_services;

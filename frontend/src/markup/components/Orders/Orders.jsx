@@ -5,13 +5,16 @@ import { ExternalLink, SquarePen, Users } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useAuth } from "../../../context/AuthContext";
 function Orders() {
-  const { setOrderId } = useAuth();
+  const setOrderId = useAuth();
+  console.log("Show the output of setOrder Id", setOrderId);
+  // const [orderId,set_OrderId]
   const [Orders, setOrders] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [individualOrder, setindividualOrder] = useState([]);
+  // const [loading, setLoading] = useState(true);
+  // const [individualOrder, setindividualOrder] = useState([]);
   const [showEditModal, setShowEditModal] = useState(false);
   const [selectedOrder, setSelectedOrder] = useState(null);
   const [updatingService, setUpdatingService] = useState(null); // Track which service is being updated
+  // eslint-disable-next-line no-unused-vars
   const [serviceStatusDrafts, setServiceStatusDrafts] = useState({});
   const [error, setError] = useState("");
 
@@ -22,12 +25,12 @@ function Orders() {
       const fetchOrders = async () => {
         const response = await Orders_services.getAllOrders();
         setOrders(response.data);
-        setLoading(false);
+        // setLoading(false);
       };
       fetchOrders();
     } catch (error) {
       console.error("Error fetching orders:", error);
-      setLoading(false);
+      // setLoading(false);
     }
   }, []);
 
@@ -50,7 +53,8 @@ function Orders() {
 
   const handleServiceStatusChange = async (orderId, serviceId, newStatus) => {
     try {
-      setOrderId(orderId); // Set the orderId in the context
+      // console.log("The new service is", serviceId);
+      // set_OrderId(orderId); // Set the orderId in the context
       // ✅ Safely update the Orders state
       setOrders((prevOrders) =>
         prevOrders.map((order) => {
@@ -78,6 +82,8 @@ function Orders() {
               : service
           ),
         }));
+      } else {
+        setError("There is an Error while update the selected Order state");
       }
 
       const orderInfo = {
@@ -101,10 +107,14 @@ function Orders() {
     const cleanStatus = status.replace(/[()]/g, "").trim().toLowerCase();
     switch (cleanStatus) {
       case "complete":
-        return <Badge bg="success">{status}</Badge>;
+        return (
+          <Badge bg="success" className="p-2 border text-white">
+            {status}
+          </Badge>
+        );
       case "in progress":
         return (
-          <Badge bg="warning" text="dark">
+          <Badge bg="warning" text="gray" className="p-2 border">
             {status}
           </Badge>
         );
@@ -138,6 +148,11 @@ function Orders() {
   );
   return (
     <div className="table-responsive">
+      {error && (
+        <div>
+          <h2>{error}</h2>
+        </div>
+      )}
       <Table striped bordered hover className="mt-4">
         <thead className="table-dark">
           <tr>
@@ -255,6 +270,9 @@ function Orders() {
                           }
                           onChange={(e) => {
                             const newStatus = parseInt(e.target.value);
+                            {
+                              console.log(service.service_id);
+                            }
                             handleServiceStatusChange(
                               selectedOrder?.order_id,
                               service.service_id,

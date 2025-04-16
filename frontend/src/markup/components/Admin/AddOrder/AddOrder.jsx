@@ -152,7 +152,7 @@ function AddOrder() {
     try {
       const sendOrder = await Orders_services.createOrder(orderData);
       if (sendOrder) {
-        navigate("/orders");
+        navigate("/admin/orders");
       } else {
         console.log("The data is not sending to the back");
       }
