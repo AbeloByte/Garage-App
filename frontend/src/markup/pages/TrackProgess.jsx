@@ -5,6 +5,7 @@ function TrackProgress() {
   const [hashKey, setHashKey] = useState("");
   const [orderedData, setorderedData] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [vehicleMake, setVehicleMake] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
 
   const handleSubmit = async (e) => {
@@ -23,6 +24,7 @@ function TrackProgress() {
         setorderedData(null);
       } else {
         setorderedData(response.data);
+        setVehicleMake(response.data.vehicle_make);
       }
     } catch (error) {
       setErrorMessage(error.message || "Failed to load order details");
@@ -42,7 +44,7 @@ function TrackProgress() {
     return (
       <span
         className={`badge rounded-pill ${
-          statusClasses[status] || "bg-secondary"
+          statusClasses[status] || "bg-secondary p-3 "
         }`}
       >
         {getStatusText(status)}
@@ -106,7 +108,7 @@ function TrackProgress() {
 
           <div className="d-flex gap-4 mb-4 ">
             <div className="customer-info">
-              <div className="p-4 border rounded ">
+              <div className="p-4  ">
                 <h6>CUSTOMER</h6>
                 <div className="d-flex flex-column gap-2">
                   <h3 className="mb-3">
@@ -152,7 +154,7 @@ function TrackProgress() {
           </div>
 
           {/* Order Status information */}
-          <div className="mb-4 p-4 border rounded ">
+          <div className="mb-4 p-4  order-date ">
             <h3>Order Status</h3>
             <div className="d-flex align-items-center gap-3">
               <div>
@@ -173,12 +175,13 @@ function TrackProgress() {
           </div>
 
           {/* Requested Services Status  */}
-          <div className="rounded p-4 progress-services border">
-            <h3 className="mb-4">Services Progress</h3>
-            <div className="d-flex flex-column gap-3">
+          <div className="rounded p-4 progress-services ">
+            <p>{vehicleMake}</p>
+            <h3 className="mb-4">Requested Services</h3>
+            <div className="d-flex flex-column gap-3 services-card">
               {orderedData.services?.map((service, index) => (
                 <div key={index} className="p-3 border rounded">
-                  <div className="d-flex justify-content-between align-items-center mb-2">
+                  <div className="d-flex justify-content-between align-items-center mb-2  ">
                     <div>
                       <h5 className="m-0">{service.service_name}</h5>
                       <p className="m-0 text-muted">
@@ -190,7 +193,7 @@ function TrackProgress() {
                         service.service_completed
                           ? "bg-success text-white"
                           : "bg-warning text-dark"
-                      }`}
+                      } p-2`}
                     >
                       {service.service_completed ? "Completed" : "In Progress"}
                     </span>
@@ -215,7 +218,7 @@ function TrackProgress() {
 
           <div className="mt-4 text-center">
             <button
-              className="btn btn-outline-secondary"
+              className="btn track-check-btn"
               onClick={() => setorderedData(null)}
             >
               Check Another Order

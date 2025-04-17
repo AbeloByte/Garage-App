@@ -719,8 +719,6 @@ input:disabled {
 }
 /* Experiance   Section */
 
-.experiance-section {
-}
 .img-content img {
   margin: 0 3.5px 10px;
 }
@@ -1151,8 +1149,13 @@ input:disabled {
 .customer-info {
   border-bottom: #ee0c09 3px solid;
   width: 50%;
+  background-color: #fff;
 }
 
+.vehicle-info {
+  background-color: #ffffff;
+  margin-left: 20px;
+}
 .vehicle-info {
   border-bottom: #ee0c09 3px solid;
   width: 50%;
@@ -1160,11 +1163,34 @@ input:disabled {
 
 .progress-services {
   border-bottom: #ee0c09 3px solid;
+  background-color: #ffffff;
 }
 
+.services-card:hover {
+  cursor: pointer;
+  transform: translateY(-5px);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+}
 .vehicle-info {
   border-bottom: #ee0c09 3px solid;
 }
 .customer-info {
   border-bottom: #ee0c09 3px solid;
+}
+
+.order-date {
+  background-color: #ffffff;
+  border: 1px solid #ffffff;
+  box-shadow: rgba(149, 157, 165, 0.2);
+}
+
+.track-check-btn {
+  background-color: #ee0d09;
+  color: #fff;
+  padding: 10px;
+  /* border-radius: 1.5rem; */
+}
+.track-check-btn:hover {
+  background-color: #e63734b7;
+  color: #fff;
 }
