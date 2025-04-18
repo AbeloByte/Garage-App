@@ -686,37 +686,41 @@ input:disabled {
 }
 
 .hero-content {
-  width: 20%;
   position: absolute;
   top: 50%;
-  left: 20%;
+  left: 30%;
   transform: translate(-50%, -50%);
-  text-align: center;
   color: #fff;
   padding: 20px;
 }
 
-.hero-content h2 {
+.heropage-title .hero-content h2 {
   color: white;
 }
-
+/* 
 .hero-section-contact-title h2 {
   position: relative;
   font-size: 52px;
   font-weight: 600;
   margin-bottom: 20px;
   line-height: 1.4em;
-}
+} */
 
-.hero-section .hero-contact-title h2::before {
+.hero-section .hero-contact-title h5::before {
   position: absolute;
   content: "";
-  right: -65px;
-  bottom: 50px;
+  right: 70px;
+  bottom: 10px;
   width: 50px;
   height: 2px;
   background-color: #ee0d09;
 }
+
+.heropage-title h2 {
+  font-size: 52px;
+  font-weight: 600;
+}
+
 /* Experiance   Section */
 
 .img-content img {

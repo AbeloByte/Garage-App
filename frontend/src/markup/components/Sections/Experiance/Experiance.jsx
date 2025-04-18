@@ -2,6 +2,7 @@ import React from "react";
 import gear from "../../../../assets/images/Display-Images/Gear.jpg";
 import carOil from "../../../../assets/images/Display-Images/carOil.jpg";
 import { FaArrowRight } from "react-icons/fa6";
+import { Link } from "react-router-dom";
 function Experiance() {
   return (
     <>
@@ -37,7 +38,10 @@ function Experiance() {
               </div>
 
               <button className="theme-btn btn-style-one">
-                <span className="mr-2">ABOUT US </span> <FaArrowRight />
+                <span className="mr-2">
+                  <Link to="/about">ABOUT US</Link>{" "}
+                </span>{" "}
+                <FaArrowRight />
               </button>
             </div>
           </div>

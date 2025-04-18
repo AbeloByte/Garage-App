@@ -23,15 +23,19 @@ function Home() {
           {/* Hero Section */}
           <div className="hero-section    hero-Img contact-section ">
             <div className=" hero-contact-title   hero-content d-flex justify-content-start align-items-center flex-column">
-              <div className=" ml-5 heropage-title ">
+              <div className="container  ml-5 heropage-title  ">
                 <h5 className="text-white">Working since 1992</h5>
                 <h2 className="fw-bold text-white fs-1">
-                  Tuneup Your Car to Next Level
+                  Tune up Your Car <br />
+                  to Next Level
                 </h2>
 
-                <div className="d-flex align-items-center gap-2 mt-3 contact-title">
-                  <FaPlayCircle className="" color="red" size={70} /> WATCH
-                  INTRO VIDEO ABOUT US
+                <div className="d-flex align-items-center gap-2 mt-3 text-start contact-title">
+                  <FaPlayCircle className="" color="red" size={70} />{" "}
+                  <span className="ml-2">
+                    WATCH INTRO VIDEO <br />
+                    ABOUT US
+                  </span>
                 </div>
               </div>
             </div>

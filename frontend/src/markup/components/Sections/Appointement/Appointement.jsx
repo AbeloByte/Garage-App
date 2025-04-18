@@ -1,6 +1,6 @@
 import React from "react";
 import { FaArrowRight } from "react-icons/fa6";
-import { Link } from "react-router-dom";
+import { Link, Links } from "react-router-dom";
 
 function Appointement() {
   return (
@@ -16,10 +16,12 @@ function Appointement() {
           </div>
           <div className="Contact-btn">
             <button className="py-3 px-5 ">
-              <Link to="/contact" className="text-decoration-none">
-                <span className="mr-2">CONTACT US </span>{" "}
-                <FaArrowRight color="black" />
-              </Link>
+              <span className="mr-2">
+                <Link to="/contact" className="text-decoration-none text-dark">
+                  CONTACT US
+                </Link>{" "}
+              </span>{" "}
+              <FaArrowRight color="black" />
             </button>
           </div>
         </div>
