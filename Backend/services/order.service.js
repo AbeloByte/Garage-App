@@ -134,32 +134,39 @@ async function getAllOrders() {
 async function getSingleOrder(order_id) {
   try {
     const customer_order = `SELECT 
-      o.order_id,
-      o.employee_id,
-      o.customer_id,
-      o.vehicle_id,
-      oi.order_total_price AS order_description, 
-      o.order_date,
-      oi.estimated_completion_date,
-      oi.completion_date,
-      o.active_order AS order_completed,
-      JSON_ARRAYAGG(
-          JSON_OBJECT(
-              'service_id', os.service_id,
-              'service_name', cs.service_name,
-              'service_description', cs.service_description,
-              'service_completed', os.service_completed
-          )
-      ) AS services
-    FROM orders o
-    JOIN order_info oi ON o.order_id = oi.order_id
-    JOIN order_services os ON o.order_id = os.order_id
-    JOIN common_services cs ON os.service_id = cs.service_id  -- Changed to common_services
-    JOIN order_status osr ON o.order_id = osr.order_id
-    WHERE o.order_id = ?
-    GROUP BY o.order_id, o.employee_id, o.customer_id, o.vehicle_id, 
-             oi.order_total_price, o.order_date, oi.estimated_completion_date, 
-             oi.completion_date, o.active_order;
+    o.order_id,
+    DATE_FORMAT(o.order_date, '%d/%m/%Y') AS order_date,
+    CONCAT(ci.customer_first_name, ' ', ci.customer_last_name) AS customer_name,
+    c.customer_email,
+    c.customer_phone_number,
+    CONCAT(cvi.vehicle_make, ' ', cvi.vehicle_model) AS vehicle_info,
+    cvi.vehicle_year,
+    cvi.vehicle_tag,
+    cvi.vehicle_model,
+    cvi.vehicle_serial,
+    CONCAT(ei.employee_first_name, ' ', ei.employee_last_name) AS employee_name,
+    CASE os.order_status
+        WHEN 1 THEN 'Complete'
+        WHEN 0 THEN 'in progress'
+        WHEN 3 THEN 'in course'
+        ELSE 'Unknown'
+    END AS order_status,
+    ar.additional_requests_completed
+FROM orders o
+LEFT JOIN customer_identifier c ON o.customer_id = c.customer_id
+LEFT JOIN customer_info ci ON c.customer_id = ci.customer_id
+LEFT JOIN customer_vehicle_info cvi ON o.vehicle_id = cvi.vehicle_id
+LEFT JOIN employee e ON o.employee_id = e.employee_id
+LEFT JOIN employee_info ei ON e.employee_id = ei.employee_id
+LEFT JOIN (
+    SELECT order_id, MAX(order_status_id) AS latest_status_id
+    FROM order_status
+    GROUP BY order_id
+) latest_os ON o.order_id = latest_os.order_id
+LEFT JOIN order_status os ON latest_os.latest_status_id = os.order_status_id
+LEFT JOIN additional_request ar ON o.order_id = ar.order_id
+ORDER BY o.order_id DESC;
+
 `;
 
     const order = await connection.query(customer_order, [order_id]);
@@ -182,44 +189,45 @@ async function updateOrderStatus(orderId) {
        WHERE order_id = ?`,
       [orderId]
     );
-    console.log("Line 179:::: ", services);
 
     const [result] = services;
-    // Validate query results
     if (!services || services.length === 0) {
       throw new Error(`No services found for order ${orderId}`);
     }
 
-    // 2. Absolute result validation
     const { total, completed } = result;
     const totalServices = Number(total) || 0;
     const completedServices = Number(completed) || 0;
-    console.log(
-      `Order ${orderId} - Total Services: ${totalServices}, Completed: ${completedServices}`
+
+    // 2. Check additional request (if exists)
+    const additionalReq = await connection.query(
+      `SELECT additional_requests_completed 
+       FROM additional_request 
+       WHERE order_id = ?`,
+      [orderId]
     );
+
+    let additionalCompleted = true; // Default to true if not exists
+    if (additionalReq.length > 0) {
+      additionalCompleted =
+        additionalReq[0].additional_requests_completed === 1;
+    }
 
     // 3. Determine if order should be marked complete
-    const shouldMarkComplete =
+    const allServicesDone =
       totalServices > 0 && totalServices === completedServices;
+    const shouldMarkComplete = allServicesDone && additionalCompleted;
 
-    console.log(
-      `Order ${orderId} - Should Mark Complete: ${shouldMarkComplete}`
-    );
-
-    // 4. Update status if all services are done
     let statusChanged = false;
     if (shouldMarkComplete) {
       const updateResult = await connection.query(
         `UPDATE order_status 
-SET order_status = 1 
-WHERE order_id = ? AND order_status = 0;`, // Only update if status is 0 (In Progress)
+         SET order_status = 1 
+         WHERE order_id = ? AND order_status = 0;`,
         [orderId]
       );
-      console.log("updateResult:::: ", updateResult);
-      statusChanged = updateResult.affectedRows > 0; // Checking if any row was affected
+      statusChanged = updateResult.affectedRows > 0;
     }
-
-    console.log("Status changed:", statusChanged);
 
     return {
       success: true,
@@ -227,7 +235,8 @@ WHERE order_id = ? AND order_status = 0;`, // Only update if status is 0 (In Pro
       currentStatus: shouldMarkComplete ? 1 : 0,
       statusChanged,
       servicesCompleted: completedServices,
-      totalServices: totalServices,
+      totalServices,
+      additionalRequestCompleted: additionalCompleted,
     };
   } catch (error) {
     console.error(`Order ${orderId} status update failed:`, error.message);
