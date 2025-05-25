@@ -38,6 +38,7 @@ import About from "./markup/pages/About";
 import Services from "./markup/pages/Services";
 import Contact from "./markup/pages/Contact";
 import TrackProgess from "./markup/pages/TrackProgess";
+import NotFoundPage from "./markup/pages/NotFoundPage";
 
 function App() {
   return (
@@ -149,6 +150,7 @@ function App() {
             </PrivateAuthRoute>
           }
         ></Route>
+        <Route path="/not-found" element={<NotFoundPage />}></Route>
       </Routes>
       {/* edit Employee Information  */}
 

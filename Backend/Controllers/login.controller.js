@@ -31,7 +31,7 @@ async function logIn(req, res, next) {
 
     // generate a token based on jwt
     const token = jwt.sign(payload, jwtSceret, {
-      expiresIn: "10h",
+      expiresIn: "2h",
     });
     // logger.log(token);
 
